@@ -1,12 +1,12 @@
 
 from pytube import YouTube
+from youtube_transcript_api import YouTubeTranscriptApi
+youtube_url='https://www.youtube.com/watch?v=RObw_WRbX6k'
 
-youtube_url='https://www.youtube.com/watch?v=NHzu69AMVFw'
+Video_id=YouTube(youtube_url).video_id
+transcript= YouTubeTranscriptApi.get_transcript(Video_id)
+text_transcript=""
 
-yt=YouTube(youtube_url)
-
-if(yt):
-    print('Title:',yt.title)
-    print('Views:',yt.views)
-    print('Author:',yt.author)
-    print('Description:',yt.description)
+for segment in transcript:
+    text_transcript += segment['text'] + " "
+print(text_transcript)
